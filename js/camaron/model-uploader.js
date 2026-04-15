@@ -37,6 +37,9 @@ const selectLoadingStrategy = (files) => {
          return new VisfLoadStrategy(files.visf);
       if (files.poly)
          return new PolyLoadStrategy(files.poly);
+      if (files.smesh)
+         return new SmeshLoadStrategy(files.smesh);
+         console.log('smesh file');
       if (files.node)
          return new NodeLoadStrategy(files.node);
    } else if (Object.keys(files).length === 2) {
