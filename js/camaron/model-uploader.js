@@ -39,7 +39,8 @@ const selectLoadingStrategy = (files) => {
          return new PolyLoadStrategy(files.poly);
       if (files.smesh)
          return new SmeshLoadStrategy(files.smesh);
-         console.log('smesh file');
+      if (files.obj)
+         return new ObjLoadStrategy(files.obj);
       if (files.node)
          return new NodeLoadStrategy(files.node);
    } else if (Object.keys(files).length === 2) {
