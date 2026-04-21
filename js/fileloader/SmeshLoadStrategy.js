@@ -3,8 +3,10 @@
 // requires "./PolyLoadStrategy";
 
 class SmeshLoadStrategy extends PolyLoadStrategy {
+    // https://wias-berlin.de/software/tetgen/fformats.smesh.html
 
     load() {
+        this.checkFile(this.fileArray, this.nodeFileArray);
         const [numVertices, dimensions] = this.loadHeader();
         this.model = new PolygonMesh();
         let startIndex = this.loadModelVertices(numVertices, 1, dimensions);
@@ -55,5 +57,9 @@ class SmeshLoadStrategy extends PolyLoadStrategy {
             polygonCount++;
         }
         this.model.polygons = polygons;
+    }
+
+    _exportToSmesh() {
+        return this.fileArray.join('\n');
     }
 }
