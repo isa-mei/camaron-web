@@ -29,15 +29,19 @@ class SmeshLoadStrategy extends PolyLoadStrategy {
 
         for (let i = 0; i < numFacets; i++) {
             const facet = this.fileArray[startIndex + offset];
-            let facetLineWords = getLineWords(facet);
+            const facetLineWords = getLineWords(facet);
             const cornersCount = parseInt(facetLineWords[0]);
             
-            // Caso en que los vertices esten en dos lineas
-            if (cornersCount > facetLineWords.length-1-boundary_marker){
-                offset++;
-                const corners = this.fileArray[startIndex + offset];
-                const cornersLineWords = getLineWords(corners);
-                facetLineWords = facetLineWords.concat(cornersLineWords);
+            // Caso en que los vertices no están en solo una linea
+            if (facetLineWords.length != cornersCount + 1 + boundary_marker){
+                while ( facetLineWords.length < cornersCount + 1 + boundary_marker) {
+                    offset++;
+                    const cornersLineWords = getLineWords(this.fileArray[startIndex + offset]);
+                    facetLineWords.push(...cornersLineWords);
+                }
+                if (facetLineWords.length > cornersCount + 1 + boundary_marker) {
+                    throw new Error('Facet corner count error');
+                }
             }
 
             // Ignora polígonos degenerados
