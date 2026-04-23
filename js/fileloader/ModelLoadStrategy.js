@@ -151,6 +151,29 @@ class ModelLoadStrategy {
          return content;
       }
    }
+   
+   _exportToSmesh() {
+      if (this.model.modelType == 'PolygonMesh') {
+         const vertices = this.model.vertices;
+         const polygons = this.model.polygons;
+
+         // vertices
+         let content = `# node list \n${vertices.length} 3 0\n`;
+         for (const vertex of vertices) {
+            content += `${vertex.id} ${vertex.coords.join(' ')}\n`;
+         }
+         // facetas
+         content += `\n# facet list \n${polygons.length} 0\n`
+         for (const polygon of polygons) {
+            const vertexIndices = polygon.vertices.map(vertex => vertex.id);
+            content += `${vertexIndices.length} ${vertexIndices.join(' ')}\n`;
+         }
+         // holes and regions
+         content += `\n# hole list \n0 \n# region list \n0 \n`;
+         return content;
+      }
+
+   }
 
    _exportToPoly() {
       if (['VertexCloud', 'PolygonMesh'].includes(this.model.modelType)) {
@@ -268,6 +291,8 @@ class ModelLoadStrategy {
 
       if (format === 'off') {
          content = this._exportToOff();
+      } else if (format === 'smesh') {
+         content = this._exportToSmesh();
       } else if (format === 'poly') {
          content = this._exportToPoly();
       } else if (format === 'visf') {
