@@ -151,7 +151,7 @@ class ModelLoadStrategy {
          return content;
       }
    }
-   
+
    _exportToSmesh() {
       if (this.model.modelType == 'PolygonMesh') {
          const vertices = this.model.vertices;
@@ -195,6 +195,26 @@ class ModelLoadStrategy {
          // Holes
          content += '0\n';
          return content;
+      }
+   }
+
+   _exportToObj() {
+      if (this.model.modelType == 'PolygonMesh') {
+         const vertices = this.model.vertices;
+         const polygons = this.model.polygons;
+
+      // vertices
+      let content = '';
+      for (const vertex of vertices) {
+            content += `v ${vertex.coords.join(' ')}\n`;
+      }
+
+      // face elements
+      for (const polygon of polygons) {
+         const vertexIndices = polygon.vertices.map(vertex => vertex.id);
+         content += `f ${vertexIndices.join(' ')}\n`;
+      }
+      return content;
       }
    }
 
@@ -295,6 +315,8 @@ class ModelLoadStrategy {
          content = this._exportToSmesh();
       } else if (format === 'poly') {
          content = this._exportToPoly();
+      } else if (format === 'obj') {
+         content = this._exportToObj();
       } else if (format === 'visf') {
          content = this._exportToVisf();
       } else if (format === 'node') {
