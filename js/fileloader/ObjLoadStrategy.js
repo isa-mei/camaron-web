@@ -21,10 +21,19 @@ class ObjLoadStrategy extends ModelLoadStrategy {
 
 
     loadHeader() {
-        // formato vértices: v x y z
-        // se deja "x y z"
+        // formato vértices: "v x y z" o "v x y z w"
+        // se deja "x y z" o "x/w y/w z/w"
         const vertices = this.fileArray.filter(line => line.startsWith('v '))
-                    .map(line => {return line.slice(2);});
+                    .map(line => {
+                        let vertexline = line.slice(2);
+                        let vertexArray = getLineWords(vertexline);
+                        if (vertexArray.length > 3){
+                            const w = parseFloat(vertexArray.pop());
+                            vertexArray = vertexArray.map(elem => { return parseFloat(elem)/w;});
+                            vertexline = vertexArray.join(' ');
+                        }
+                        return vertexline;
+                        });
 
         // formato de cara: f v1/vt1/vn1 v2/vt2/vn2 ...
         // solo se deja 'v1 v2 ...'
@@ -63,8 +72,7 @@ class ObjLoadStrategy extends ModelLoadStrategy {
         for(let j = 0; j < vertexCount; j++) {
         let vertexIndex = parseInt(lineWords[j]);
             if (!isPositiveInteger(vertexIndex)){
-                // 
-                // vertexIndex = Math.abs(vertexIndex);
+                // correción indices negativos 
                 vertexIndex = startIndex + vertexIndex + 1;
             }
             const vertex = this.model.vertices[vertexIndex-1];
