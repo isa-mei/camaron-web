@@ -32,7 +32,7 @@ class PolyLoadStrategy extends ModelLoadStrategy {
         this.model.vertices = Array.from(Object.values(this.model.vertices));
     }
 
-    // Verifica que esté el archivo .node si es necesario, y si está, junta la información del con el .poly para facilitar la carga
+    // Verifica que esté el archivo .node si es necesario y, si está, junta la información del con el .poly para facilitar la carga
     checkFile(polyFileArray, nodeFileArray) {
         const vertexLineWords = getLineWords(this.fileArray[0]);
         if (vertexLineWords[0] == '0' && nodeFileArray) {
@@ -119,7 +119,14 @@ class PolyLoadStrategy extends ModelLoadStrategy {
                 const polygonLineWords = getLineWords(this.fileArray[j + startIndex + offset + 1]);
                 const sidesCount = parseInt(polygonLineWords[0]);
                 if (polygonLineWords.length != sidesCount + 1) {
-                   throw new Error('Facet polygon side count error');
+                    while (polygonLineWords.length < sidesCount + 1) {
+                        offset++;
+                        const nextLineWords = getLineWords(this.fileArray[j + startIndex + offset + 1]);
+                        polygonLineWords.push(...nextLineWords);
+                    }
+                    if (polygonLineWords.length > sidesCount + 1) {
+                        throw new Error('Facet polygon side count error');
+                    }
                 }
                 // Ignora polígonos degenerados
                 if (sidesCount < 3) continue;
@@ -146,9 +153,7 @@ class PolyLoadStrategy extends ModelLoadStrategy {
             if (!outerPolygon) {
                 throw new Error('The outer polygon must exist and not be degenerate'); 
             }
-            if (facetHoleCount != innerPolygons.length) {
-                throw new Error('Facet holes must be equal to facet inner polygons'); 
-            }
+            
             // Si hay agujeros, debo agregar como agujeros todos los polígonos internos al polígono externo
             if (facetHoleCount) {    
                 const holeInfo = {};
