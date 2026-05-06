@@ -158,7 +158,7 @@ class ModelLoadStrategy {
          const polygons = this.model.polygons;
 
          // vertices
-         let content = `# node list \n${vertices.length} 3 0\n`;
+         let content = `# node list \n${vertices.length} 3 0 0\n`;
          for (const vertex of vertices) {
             content += `${vertex.id} ${vertex.coords.join(' ')}\n`;
          }
@@ -181,7 +181,7 @@ class ModelLoadStrategy {
          const polygons = this.model.polygons ? this.model.polygons : [];
 
          // Vertices
-         let content = `${vertices.length} 3\n`;
+         let content = `${vertices.length} 3 0 0\n`;
          for (const vertex of vertices) {
             content += `${vertex.id} ${vertex.coords.join(' ')}\n`;
          }
