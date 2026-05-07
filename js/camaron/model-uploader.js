@@ -37,9 +37,17 @@ const selectLoadingStrategy = (files) => {
          return new VisfLoadStrategy(files.visf);
       if (files.poly)
          return new PolyLoadStrategy(files.poly);
+      if (files.smesh)
+         return new SmeshLoadStrategy(files.smesh);
+      if (files.obj)
+         return new ObjLoadStrategy(files.obj);
       if (files.node)
          return new NodeLoadStrategy(files.node);
    } else if (Object.keys(files).length === 2) {
+      if (files.node && files.poly)
+         return new PolyLoadStrategy(files.poly, files.node);
+      if (files.node && files.smesh)
+         return new SmeshLoadStrategy(files.smesh, files.node);
       if (files.node && files.face)
          return new NodeFaceLoadStrategy(files.node, files.face);
       if (files.node && files.ele)

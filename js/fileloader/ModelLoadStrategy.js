@@ -152,13 +152,36 @@ class ModelLoadStrategy {
       }
    }
 
+   _exportToSmesh() {
+      if (this.model.modelType == 'PolygonMesh') {
+         const vertices = this.model.vertices;
+         const polygons = this.model.polygons;
+
+         // vertices
+         let content = `# node list \n${vertices.length} 3 0 0\n`;
+         for (const vertex of vertices) {
+            content += `${vertex.id} ${vertex.coords.join(' ')}\n`;
+         }
+         // facetas
+         content += `\n# facet list \n${polygons.length} 0\n`
+         for (const polygon of polygons) {
+            const vertexIndices = polygon.vertices.map(vertex => vertex.id);
+            content += `${vertexIndices.length} ${vertexIndices.join(' ')}\n`;
+         }
+         // holes and regions
+         content += `\n# hole list \n0 \n# region list \n0 \n`;
+         return content;
+      }
+
+   }
+
    _exportToPoly() {
       if (['VertexCloud', 'PolygonMesh'].includes(this.model.modelType)) {
          const vertices = this.model.vertices;
          const polygons = this.model.polygons ? this.model.polygons : [];
 
          // Vertices
-         let content = `${vertices.length} 3\n`;
+         let content = `${vertices.length} 3 0 0\n`;
          for (const vertex of vertices) {
             content += `${vertex.id} ${vertex.coords.join(' ')}\n`;
          }
@@ -172,6 +195,26 @@ class ModelLoadStrategy {
          // Holes
          content += '0\n';
          return content;
+      }
+   }
+
+   _exportToObj() {
+      if (this.model.modelType == 'PolygonMesh') {
+         const vertices = this.model.vertices;
+         const polygons = this.model.polygons;
+
+      // vertices
+      let content = '';
+      for (const vertex of vertices) {
+            content += `v ${vertex.coords.join(' ')}\n`;
+      }
+
+      // face elements
+      for (const polygon of polygons) {
+         const vertexIndices = polygon.vertices.map(vertex => vertex.id);
+         content += `f ${vertexIndices.join(' ')}\n`;
+      }
+      return content;
       }
    }
 
@@ -268,8 +311,12 @@ class ModelLoadStrategy {
 
       if (format === 'off') {
          content = this._exportToOff();
+      } else if (format === 'smesh') {
+         content = this._exportToSmesh();
       } else if (format === 'poly') {
          content = this._exportToPoly();
+      } else if (format === 'obj') {
+         content = this._exportToObj();
       } else if (format === 'visf') {
          content = this._exportToVisf();
       } else if (format === 'node') {
