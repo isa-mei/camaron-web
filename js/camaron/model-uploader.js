@@ -41,6 +41,8 @@ const selectLoadingStrategy = (files) => {
          return new SmeshLoadStrategy(files.smesh);
       if (files.obj)
          return new ObjLoadStrategy(files.obj);
+      if (files.m3d)
+         return new M3DLoadStrategy(files.m3d);
       if (files.node)
          return new NodeLoadStrategy(files.node);
    } else if (Object.keys(files).length === 2) {
@@ -80,7 +82,7 @@ const waitForModelLoaded = () => {
 // Initializes model loading and waits for it to be loaded
 const initModelView = () => {
    setTimeout(() => {
-      model.loadBuffers();
+      model.doLoadBuffers();
       mvpManager = new MVPManager(model);
    }, 0);
    changeViewType();
