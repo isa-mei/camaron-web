@@ -107,6 +107,7 @@ class Polygon extends Shape {
          } catch {
             console.log(this.vertices, this.id);
             console.error('Could not find basis vectors. All vertices are collinear')
+            throw new Error('Basis vector error');
          }
       }
       return this._basisVectors;

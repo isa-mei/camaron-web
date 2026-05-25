@@ -15,4 +15,14 @@ class AbstractModel {
    loadBuffers() {
       this.loaded = true;
   }
+
+   doLoadBuffers() {
+      try {
+         this.loadBuffers();
+      } catch (error) {
+         console.error(error);
+         closeModal('modal-loading');
+         openModal('modal-error', 'Error loading buffers model: ' + error.message);
+      }
+   }
 }

@@ -82,7 +82,7 @@ const waitForModelLoaded = () => {
 // Initializes model loading and waits for it to be loaded
 const initModelView = () => {
    setTimeout(() => {
-      model.loadBuffers();
+      model.doLoadBuffers();
       mvpManager = new MVPManager(model);
    }, 0);
    changeViewType();
