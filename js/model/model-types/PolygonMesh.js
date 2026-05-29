@@ -13,6 +13,7 @@ class PolygonMesh extends VertexCloud {
       this.vertexNormalsLinesBuffer = gl.createBuffer();
       this.faceNormalsLinesBuffer = gl.createBuffer();
       this.faceIdsBuffer = {position: gl.createBuffer(), texcoord: gl.createBuffer()};
+      this._edges = new Set();
       this.edgesCount = 0;
       this.trianglesCount = 0;
       this.polygonIdsLength = 0;
@@ -57,7 +58,7 @@ class PolygonMesh extends VertexCloud {
    loadEdges() {
       const polygons = this.polygons;
       for (const polygon of polygons) {
-         this.edgesCount += polygon.vertices.length
+         this.edgesCount += polygon.vertices.length;
       }
 
       const edgeData = new Float32Array(this.edgesCount*6);
@@ -73,6 +74,11 @@ class PolygonMesh extends VertexCloud {
                edgeData[k] = vertex1[0]; edgeData[k+1] = vertex1[1]; edgeData[k+2] = vertex1[2];
                edgeData[k+3] = vertex2[0]; edgeData[k+4] = vertex2[1]; edgeData[k+5] = vertex2[2];
                k += 6;
+
+               const vertex1Id = polygonVertices[i].id;
+               const vertex2Id = polygonVertices[(i + 1) % polygonVertices.length].id;
+               const edgeKey = vertex1Id < vertex2Id ? `${vertex1Id}-${vertex2Id}` : `${vertex2Id}-${vertex1Id}`;
+               this._edges.add(edgeKey);
             }
          }
          // Si tiene uno o más agujeros, une cada segmento continuo del polígono con una línea,
@@ -89,6 +95,11 @@ class PolygonMesh extends VertexCloud {
                   edgeData[k] = vertex1[0]; edgeData[k+1] = vertex1[1]; edgeData[k+2] = vertex1[2];
                   edgeData[k+3] = vertex2[0]; edgeData[k+4] = vertex2[1]; edgeData[k+5] = vertex2[2];
                   k += 6;
+
+                  const vertex1Id = polygonVertices[j].id;
+                  const vertex2Id = polygonVertices[Math.max(start, (j + 1) % end)].id;
+                  const edgeKey = vertex1Id < vertex2Id ? `${vertex1Id}-${vertex2Id}` : `${vertex2Id}-${vertex1Id}`;
+                  this._edges.add(edgeKey);
                }
             }
          }
@@ -284,5 +295,12 @@ class PolygonMesh extends VertexCloud {
          }
       }
       return new Float32Array(colorData);
+   }
+
+   calculateEulerFormula() {
+      const V = this.vertices.length;
+      const A = this._edges.size;
+      const C = this.polygons.length;
+      return V - A + C;
    }
 }
