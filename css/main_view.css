@@ -19,6 +19,13 @@
     height: 100%; 
 }
 
+#main-view .information { 
+  display: none;}
+
+.information1 {
+  grid-column: 10/13; 
+  grid-row: 3/3; }
+
 #main-view .selections {
       grid-column: 10/13; }
     #main-view .results {
@@ -43,6 +50,9 @@
   
   #main-view.view0 .evaluate {
     grid-column: 10/13; }
+
+  #main-view.view0 .information { 
+    display: none;}
   
   #main-view.view1 .model-view {
     grid-column: 1/10; }

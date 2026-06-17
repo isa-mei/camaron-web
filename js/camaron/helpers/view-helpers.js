@@ -27,10 +27,12 @@ const updateInfo = () => {
 
    verticesInfo.innerHTML = `Vertices: ${model.vertices.length}`;
    polytopesInfo.innerHTML = '• ';
+   resetInformation();
    if (model.modelType === 'PSLG') {
       polytopesInfo.innerHTML += `Edges: ${model.edges?.length}`;
    } else if (model.modelType === 'PolygonMesh') {
       polytopesInfo.innerHTML += `Polygons: ${model.polygons?.length}`;
+      showEulerInformation();
    } else if (model.modelType === 'PolyhedronMesh') {
       polytopesInfo.innerHTML += `Polyhedrons: ${model.polyhedrons?.length}`;
    }

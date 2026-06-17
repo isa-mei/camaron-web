@@ -301,6 +301,6 @@ class PolygonMesh extends VertexCloud {
       const V = this.vertices.length;
       const A = this._edges.size;
       const C = this.polygons.length;
-      return V - A + C;
+      return [V, A, C, V - A + C];
    }
 }
