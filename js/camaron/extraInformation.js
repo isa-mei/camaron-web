@@ -22,7 +22,7 @@ const showEulerInformation = () => {
     const euler = document.getElementById("euler");
     const [V, A, C, Euler] = model.calculateEulerFormula();
     const span = document.createElement("span");
-    span.innerHTML = `This model has ${V} vertices, ${A} edges and ${C} faces. <br>
-    Then, the result of V - E + F is: ${Euler}`;
+    span.innerHTML = `This model has <strong>${V}</strong> vertices, <strong>${A}</strong> edges and <strong>${C}</strong> faces. <br>
+    Then, the result of V - E + F is: <strong>${Euler}</strong>`;
     euler.appendChild(span);
 }
