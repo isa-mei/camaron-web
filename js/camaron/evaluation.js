@@ -2,6 +2,7 @@
 
 // requires "../evaluation/AngleEvaluationStrategy";
 // requires "../evaluation/AreaEvaluationStrategy";
+// requires "../evaluation/EdgeRatioEvaluationStrategy";
 // requires "./view-helpers";
 
 
@@ -78,6 +79,8 @@ const evalButtonHandler = (e) => {
       evaluation = new VolumeEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'aspect-ratio') {
       evaluation = new AspectRatioEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'edge-ratio') {
+      evaluation = new EdgeRatioEvaluationStrategy(model, evaluationMode);
    } else {
       alert("not implemented... yet");
       return;

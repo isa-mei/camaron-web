@@ -229,6 +229,7 @@ const setSelectionAndEvaluationOptions = () => {
          {value: 'area', dataImg: 'img/icon-ev-area.svg', text: 'By Polygon Area', evaluation: true},
          {value: 'edges', dataImg: 'img/icon-ev-edges.svg', text: 'By Polygon Edge Number', evaluation: true},
          {value: 'aspect-ratio', dataImg: 'img/icon-ev-aspect-ratio.svg', text: 'By Polygon Aspect Ratio', evaluation: true},
+         {value: 'edge-ratio', dataImg: '', text: 'By Polygon Edge Ratio', evaluation: true},
          {value: 'id', dataImg: 'img/img-id.svg', text: 'By Polygon ID', evaluation: false}
       ]
    } else if (model.modelType === 'PolyhedronMesh') {
