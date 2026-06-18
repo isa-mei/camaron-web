@@ -23,6 +23,7 @@ class Polygon extends Shape {
       this.isVisible = true;
       this._minAngle = null;
       this._aspectRatio = null;
+      this._lengths = [];
    }
 
    // Obtiene los ángulos internos del polígono.
@@ -285,5 +286,24 @@ class Polygon extends Shape {
          this._aspectRatio = circumradius ? getPolygonInradius(this, 1.0) / circumradius : 0;
       }
       return this._aspectRatio;
+   }
+
+   get lengths() {
+      if (!this._lengths.length) {
+         for (let i = 0; i < this.vertices.length; i++) {
+            const v1 = this.vertices[i].coords;
+            const v2 = this.vertices[(i + 1) % this.vertices.length].coords;
+            const distance = vec3.distance(v1, v2);
+            this._lengths.push(distance);
+         }
+      }
+      return this._lengths;
+   }
+
+   get edgeRatio() {
+      const lengths = this.lengths;
+      const minLength = Math.min(...lengths);
+      const maxLength = Math.max(...lengths);
+      return minLength / maxLength;
    }
 }
