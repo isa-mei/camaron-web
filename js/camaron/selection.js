@@ -110,6 +110,18 @@ const applyButtonHandler = (e) => {
       const angleTo = document.getElementById("angle_to").value;
       selection = new AngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
    }
+   else if (selectionMethod == 'angle-min' || selectionMethod == 'angle2-min') {
+      const method = selectionMethod.replace("-", "_");
+      const angleFrom = document.getElementById(method + "_from").value;
+      const angleTo = document.getElementById(method + "_to").value;
+      selection = new MinAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+   }
+   else if (selectionMethod == 'angle-max' || selectionMethod == 'angle2-max') {
+      const method = selectionMethod.replace("-", "_");
+      const angleFrom = document.getElementById(method + "_from").value;
+      const angleTo = document.getElementById(method + "_to").value;
+      selection = new MaxAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+   }
    else if (selectionMethod == 'angle2') {
       const angleFrom = document.getElementById("angle_from2").value;
       const angleTo = document.getElementById("angle_to2").value;
@@ -129,6 +141,11 @@ const applyButtonHandler = (e) => {
       const aspectRatioFrom = document.getElementById("aspect_ratio_from").value;
       const aspectRatioTo = document.getElementById("aspect_ratio_to").value;
       selection = new AspectRatioSelectionStrategy(model, selectionMode, aspectRatioFrom, aspectRatioTo);
+   }
+   else if (selectionMethod == 'edge-ratio') {
+      const edgeRatioFrom = document.getElementById("edge_ratio_from").value;
+      const edgeRatioTo = document.getElementById("edge_ratio_to").value;
+      selection = new EdgeRatioSelectionStrategy(model, selectionMode, edgeRatioFrom, edgeRatioTo);
    }
    else if (selectionMethod == 'edges') {
       const edges_number = document.getElementById("edges_number").value;

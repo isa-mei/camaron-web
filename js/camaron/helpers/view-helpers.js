@@ -27,10 +27,12 @@ const updateInfo = () => {
 
    verticesInfo.innerHTML = `Vertices: ${model.vertices.length}`;
    polytopesInfo.innerHTML = '• ';
+   resetInformation();
    if (model.modelType === 'PSLG') {
       polytopesInfo.innerHTML += `Edges: ${model.edges?.length}`;
    } else if (model.modelType === 'PolygonMesh') {
       polytopesInfo.innerHTML += `Polygons: ${model.polygons?.length}`;
+      showEulerInformation();
    } else if (model.modelType === 'PolyhedronMesh') {
       polytopesInfo.innerHTML += `Polyhedrons: ${model.polyhedrons?.length}`;
    }
@@ -224,14 +226,19 @@ const setSelectionAndEvaluationOptions = () => {
    if (model.modelType === 'PolygonMesh') {
       options = [
          {value: 'angle', dataImg: 'img/icon-ev-angles.svg', text: 'By Polygon Internal Angles', evaluation: true},
+         {value: 'angle-min', dataImg: 'img/icon-ev-angles.svg', text: 'By Polygon Internal Min Angles', evaluation: true},
+         {value: 'angle-max', dataImg: 'img/icon-ev-angles.svg', text: 'By Polygon Internal Max Angles', evaluation: true},
          {value: 'area', dataImg: 'img/icon-ev-area.svg', text: 'By Polygon Area', evaluation: true},
          {value: 'edges', dataImg: 'img/icon-ev-edges.svg', text: 'By Polygon Edge Number', evaluation: true},
          {value: 'aspect-ratio', dataImg: 'img/icon-ev-aspect-ratio.svg', text: 'By Polygon Aspect Ratio', evaluation: true},
+         {value: 'edge-ratio', dataImg: '', text: 'By Polygon Edge Ratio', evaluation: true},
          {value: 'id', dataImg: 'img/img-id.svg', text: 'By Polygon ID', evaluation: false}
       ]
    } else if (model.modelType === 'PolyhedronMesh') {
       options = [
          {value: 'angle2', dataImg: 'img/icon-ev-dihedral.svg', text: 'By Polyhedron Solid Angles', evaluation: true},
+         {value: 'angle2-min', dataImg: 'img/icon-ev-dihedral.svg', text: 'By Polyhedron Solid Min Angles', evaluation: true},
+         {value: 'angle2-max', dataImg: 'img/icon-ev-dihedral.svg', text: 'By Polyhedron Solid Max Angles', evaluation: true},
          {value: 'area', dataImg: 'img/icon-ev-surface.svg', text: 'By Polyhedron Surface', evaluation: true},
          {value: 'volume', dataImg: 'img/icon-ev-volume.svg', text: 'By Polyhedron Volume', evaluation: true},
          {value: 'id', dataImg: 'img/img-id.svg', text: 'By Polyhedron ID', evaluation: false},

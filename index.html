@@ -324,6 +324,11 @@
                 </div>
             </div>
         </div>
+        <div id="euler-info" class="card information">
+            <h4> Euler's formula</h4>
+            <div id="euler"> </div>
+        </div>
+
         <div class="card selections">
             <div class="selection-tabs">
                 <div class="tabs tab1">
@@ -355,6 +360,32 @@
                                 <span>rad</span>
                             </div>
                         </div>
+                        <div class="angle-min-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle_min_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle_min_to" type="text" placeholder="-">
+                                </div>
+                                <span>rad</span>
+                            </div>
+                        </div>
+                        <div class="angle-max-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle_max_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle_max_to" type="text" placeholder="-">
+                                </div>
+                                <span>rad</span>
+                            </div>
+                        </div>
                         <div class="angle2-box select-box">
                             <div class="flex v-center">
                                 <label class="radio">
@@ -364,6 +395,32 @@
                                     <input id="angle_from2" type="text" placeholder="0">
                                     <i class="material-icons">remove</i>
                                     <input id="angle_to2" type="text" placeholder="-">
+                                </div>
+                                <span>sr</span>
+                            </div>
+                        </div>
+                        <div class="angle2-min-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle2_min_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle2_min_to" type="text" placeholder="-">
+                                </div>
+                                <span>sr</span>
+                            </div>
+                        </div>
+                        <div class="angle2-max-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle2_max_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle2_max_to" type="text" placeholder="-">
                                 </div>
                                 <span>sr</span>
                             </div>
@@ -401,6 +458,18 @@
                                     <input id="aspect_ratio_from" type="text" placeholder="0">
                                     <i class="material-icons">remove</i>
                                     <input id="aspect_ratio_to" type="text" placeholder="1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="edge-ratio-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="edge_ratio_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="edge_ratio_to" type="text" placeholder="1">
                                 </div>
                             </div>
                         </div>
@@ -769,6 +838,9 @@
     <script type="text/javascript" src="js/selection/IdSelectionStrategy.js"></script>
     <script type="text/javascript" src="js/selection/VolumeSelectionStrategy.js"></script>
     <script type="text/javascript" src="js/selection/AspectRatioSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/EdgeRatioSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/MinAngleSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/MaxAngleSelectionStrategy.js"></script>
     <!-- Evaluation -->
     <script type="text/javascript" src="js/evaluation/EvaluationStrategy.js"></script>
     <script type="text/javascript" src="js/evaluation/AngleEvaluationStrategy.js"></script>
@@ -776,6 +848,9 @@
     <script type="text/javascript" src="js/evaluation/EdgesEvaluationStrategy.js"></script>
     <script type="text/javascript" src="js/evaluation/VolumeEvaluationStrategy.js"></script>
     <script type="text/javascript" src="js/evaluation/AspectRatioEvaluationStrategy.js"></script>
+    <script type="text/javascript" src="js/evaluation/EdgeRatioEvaluationStrategy.js"></script>
+    <script type="text/javascript" src="js/evaluation/MaxAngleEvaluationStrategy.js"></script>
+    <script type="text/javascript" src="js/evaluation/MinAngleEvaluationStrategy.js"></script>
     <!-- UI -->
     <script type="text/javascript" src="js/ui/translator.js"></script>
     <script type="text/javascript" src="js/ui/rotator.js"></script>
@@ -785,6 +860,7 @@
     <script type="text/javascript" src="js/camaron/helpers/color-helpers.js"></script>
     <script type="text/javascript" src="js/camaron/helpers/inradius-helpers.js"></script>
     <script type="text/javascript" src="js/camaron/helpers/circumradius-helpers.js"></script>
+    <script type="text/javascript" src="js/camaron/extraInformation.js"></script>
     <script type="text/javascript" src="js/camaron/helpers/view-helpers.js"></script>
     <script type="text/javascript" src="js/camaron/config.js"></script>
     <script type="text/javascript" src="js/camaron/mouse-interactions.js"></script>
