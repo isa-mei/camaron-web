@@ -130,6 +130,11 @@ const applyButtonHandler = (e) => {
       const aspectRatioTo = document.getElementById("aspect_ratio_to").value;
       selection = new AspectRatioSelectionStrategy(model, selectionMode, aspectRatioFrom, aspectRatioTo);
    }
+   else if (selectionMethod == 'edge-ratio') {
+      const edgeRatioFrom = document.getElementById("edge_ratio_from").value;
+      const edgeRatioTo = document.getElementById("edge_ratio_to").value;
+      selection = new EdgeRatioSelectionStrategy(model, selectionMode, edgeRatioFrom, edgeRatioTo);
+   }
    else if (selectionMethod == 'edges') {
       const edges_number = document.getElementById("edges_number").value;
       selection = new EdgesSelectionStrategy(model, selectionMode, edges_number)
