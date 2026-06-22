@@ -71,6 +71,10 @@ const evalButtonHandler = (e) => {
 
    if (evaluationMethod === 'angle' || evaluationMethod === 'angle2') {
       evaluation = new AngleEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'angle-min' || evaluationMethod === 'angle2-min') {
+      evaluation = new MinAngleEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'angle-max' || evaluationMethod === 'angle2-max') {
+      evaluation = new MaxAngleEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'area') {
       evaluation = new AreaEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'edges') {
