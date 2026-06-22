@@ -360,6 +360,32 @@
                                 <span>rad</span>
                             </div>
                         </div>
+                        <div class="angle-min-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle_min_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle_min_to" type="text" placeholder="-">
+                                </div>
+                                <span>rad</span>
+                            </div>
+                        </div>
+                        <div class="angle-max-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle_max_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle_max_to" type="text" placeholder="-">
+                                </div>
+                                <span>rad</span>
+                            </div>
+                        </div>
                         <div class="angle2-box select-box">
                             <div class="flex v-center">
                                 <label class="radio">
@@ -369,6 +395,32 @@
                                     <input id="angle_from2" type="text" placeholder="0">
                                     <i class="material-icons">remove</i>
                                     <input id="angle_to2" type="text" placeholder="-">
+                                </div>
+                                <span>sr</span>
+                            </div>
+                        </div>
+                        <div class="angle2-min-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle2_min_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle2_min_to" type="text" placeholder="-">
+                                </div>
+                                <span>sr</span>
+                            </div>
+                        </div>
+                        <div class="angle2-max-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle2_max_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle2_max_to" type="text" placeholder="-">
                                 </div>
                                 <span>sr</span>
                             </div>
@@ -787,6 +839,8 @@
     <script type="text/javascript" src="js/selection/VolumeSelectionStrategy.js"></script>
     <script type="text/javascript" src="js/selection/AspectRatioSelectionStrategy.js"></script>
     <script type="text/javascript" src="js/selection/EdgeRatioSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/MinAngleSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/MaxAngleSelectionStrategy.js"></script>
     <!-- Evaluation -->
     <script type="text/javascript" src="js/evaluation/EvaluationStrategy.js"></script>
     <script type="text/javascript" src="js/evaluation/AngleEvaluationStrategy.js"></script>

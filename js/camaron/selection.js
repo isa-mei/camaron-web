@@ -110,6 +110,18 @@ const applyButtonHandler = (e) => {
       const angleTo = document.getElementById("angle_to").value;
       selection = new AngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
    }
+   else if (selectionMethod == 'angle-min' || selectionMethod == 'angle2-min') {
+      const method = selectionMethod.replace("-", "_");
+      const angleFrom = document.getElementById(method + "_from").value;
+      const angleTo = document.getElementById(method + "_to").value;
+      selection = new MinAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+   }
+   else if (selectionMethod == 'angle-max' || selectionMethod == 'angle2-max') {
+      const method = selectionMethod.replace("-", "_");
+      const angleFrom = document.getElementById(method + "_from").value;
+      const angleTo = document.getElementById(method + "_to").value;
+      selection = new MaxAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+   }
    else if (selectionMethod == 'angle2') {
       const angleFrom = document.getElementById("angle_from2").value;
       const angleTo = document.getElementById("angle_to2").value;
