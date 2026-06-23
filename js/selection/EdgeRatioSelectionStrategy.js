@@ -9,7 +9,7 @@ class EdgeRatioSelectionStrategy extends SelectionStrategy {
 	
    	// Selecciona un polítopo si cumple con el Edge ratio.
    	selectPolytope(polytope) {
-		super.selectPolytope(polytope, ['PolygonMesh'], 
+		super.selectPolytope(polytope, ['PolygonMesh', 'PolyhedronMesh'], 
 			polytope => {
 				const edgeRatio = polytope.edgeRatio;
 				return this.minEdgeRatio <= edgeRatio && edgeRatio <= this.maxEdgeRatio;

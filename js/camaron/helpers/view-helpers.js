@@ -241,6 +241,7 @@ const setSelectionAndEvaluationOptions = () => {
          {value: 'angle2-max', dataImg: 'img/icon-ev-dihedral.svg', text: 'By Polyhedron Solid Max Angles', evaluation: true},
          {value: 'area', dataImg: 'img/icon-ev-surface.svg', text: 'By Polyhedron Surface', evaluation: true},
          {value: 'volume', dataImg: 'img/icon-ev-volume.svg', text: 'By Polyhedron Volume', evaluation: true},
+         {value: 'edge-ratio', dataImg: '', text: 'By Polyhedron Edge Ratio', evaluation: true},
          {value: 'id', dataImg: 'img/img-id.svg', text: 'By Polyhedron ID', evaluation: false},
       ]
    }

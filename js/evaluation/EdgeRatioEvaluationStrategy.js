@@ -7,7 +7,7 @@ class EdgeRatioEvaluationStrategy extends EvaluationStrategy {
 
     evaluate() {
         return super.evaluate(
-            ['PolygonMesh'],
+            ['PolygonMesh', 'PolyhedronMesh'],
             polytope => polytope.edgeRatio,
             'Edge Ratio Histogram',
             'Edge Ratio'
