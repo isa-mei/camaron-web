@@ -95,4 +95,14 @@ class Polyhedron extends Shape {
         }
         return this._solidAngles;
     }
+
+    get edgeRatio() {
+        if (this._edgeRatio == null) {
+            const lengths = this.polygons.map(polygon => polygon.lengths);
+            const minlength = Math.min(...lengths.flat());
+            const maxlength = Math.max(...lengths.flat());
+            this._edgeRatio = minlength / maxlength;
+        }
+        return this._edgeRatio;
+    }
 }
