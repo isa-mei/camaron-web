@@ -228,6 +228,7 @@ const setSelectionAndEvaluationOptions = () => {
          {value: 'angle', dataImg: 'img/icon-ev-angles.svg', text: 'By Polygon Internal Angles', evaluation: true},
          {value: 'angle-min', dataImg: 'img/icon-ev-angles.svg', text: 'By Polygon Internal Min Angles', evaluation: true},
          {value: 'angle-max', dataImg: 'img/icon-ev-angles.svg', text: 'By Polygon Internal Max Angles', evaluation: true},
+         {value: 'angle3', dataImg: 'img/img-angle.svg', text: 'By Polygon Dihedral Angles', evaluation: true},
          {value: 'area', dataImg: 'img/icon-ev-area.svg', text: 'By Polygon Area', evaluation: true},
          {value: 'edges', dataImg: 'img/icon-ev-edges.svg', text: 'By Polygon Edge Number', evaluation: true},
          {value: 'aspect-ratio', dataImg: 'img/icon-ev-aspect-ratio.svg', text: 'By Polygon Aspect Ratio', evaluation: true},
