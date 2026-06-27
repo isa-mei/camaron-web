@@ -127,6 +127,11 @@ const applyButtonHandler = (e) => {
       const angleTo = document.getElementById("angle_to2").value;
       selection = new AngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
    }
+   else if (selectionMethod == 'angle3') {
+      const angleFrom = document.getElementById("angle3_from").value;
+      const angleTo = document.getElementById("angle3_to").value;
+      selection = new DihedralAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+   }
    else if (selectionMethod == 'area') {
       const areaFrom = document.getElementById("area_from").value;
       const areaTo = document.getElementById("area_to").value;
