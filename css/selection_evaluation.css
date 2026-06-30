@@ -5,7 +5,7 @@
 .drop-down {
     position: relative;
     display: flex;
-    font-size: 16px; 
+    font-size: 14px; 
 }
 
 .drop-down select {
@@ -52,9 +52,12 @@
 .drop-down .select-list {
     position: absolute;
     display: none;
-    top: 0;
+    top: 74%;
     left: 0;
     width: 100%;
+    max-height: 180px;
+    overflow-y: auto;
+    overflow-x: hidden;
     z-index: 2;
     padding: 0px;
     background: #FFFFFF;
@@ -153,4 +156,12 @@
 .selectionmode-box .radio input[type="radio"]:checked ~ .input-radio rect {
     stroke: #FFA0B6 !important;
     transition: stroke .3s; 
+}
+
+.angle-mode.active {
+  margin-bottom: 10px;
+}
+
+.angle-mode.hidden {
+  display: none;
 }

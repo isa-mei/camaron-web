@@ -211,6 +211,7 @@ const setSelectionAndEvaluationOptions = () => {
    $('.drop-down .button').off('click');
    // Y deshabilita el select box correspondiente a alguna opción previa.
    $('.select-box').removeClass('active').hide();
+   $('.angle-mode').removeClass('active').hide();
    if (!model || (model && !['PolygonMesh', 'PolyhedronMesh'].includes(model.modelType))) {
       $('.drop-down .button').addClass('disabled');
       $('.drop-down .button').html('<div><i class="material-icons" style="color: #7B7BDD;">block</i><span>Not available</span></div>');
@@ -259,6 +260,12 @@ const setSelectionAndEvaluationOptions = () => {
          // Y si su padre tiene id selection_type, oculta los elementos de clase select-box y muestra el relevante a la opción escogida  
          $('#selection-type').has(this).siblings('.select-box').removeClass('active').hide();
          $('#selection-type').has(this).siblings(`.select-box.${option.value}-box`).fadeIn().addClass('active');
+         // si en las opciones está seleccionado algun angulo, se incluye radio para escoger entre radianes/estereorradián o grados
+         const angleModeOption = $(this).closest('.card').find('.angle-mode');
+         option.value.startsWith('angle') ? angleModeOption.fadeIn().addClass('active') : angleModeOption.removeClass('active').hide();
+         // si la opcion es angle2 = angulo solido, debe decir steradians en vez de radians
+         option.value.startsWith('angle2') ? angleModeOption.find('.text-radsr').text('Steradians') : angleModeOption.find('.text-radsr').text('Radians');
+         option.value.startsWith('angle2') ? angleModeOption.find('.text-deg').text('Degree\u00B2') : angleModeOption.find('.text-deg').text('Degree');
       });
       // Finalmente, agrega las opciones disponibles dadas por el tipo de malla a los drop-downs de selection y evaluation (si evaluation=true).
       const dropDownSelector = option.evaluation ? '.drop-down' : '#selection-type';
@@ -268,8 +275,32 @@ const setSelectionAndEvaluationOptions = () => {
    $('.drop-down .button').html('<div><img src="' + options[0].dataImg + '"/>' + '<span>' + options[0].text + '</span></div>' + '<a href="javascript:void(0);" class="select-list-link"><i class="material-icons">keyboard_arrow_down</i></a>');
    $('.drop-down .button').attr('value', options[0].value);     
    $('.drop-down .button').on('click', function(){      
-   $('.drop-down').has(this).find('.select-list').toggleClass('active');  
+      $('.drop-down').has(this).find('.select-list').toggleClass('active');  
    });
    // Y finalmente muestra el select box relevante a la primera opción.
    $(`.select-box.${options[0].value}-box`).fadeIn().addClass('active');
+   options[0].value.startsWith('angle') ? $('#selection-angle-mode').fadeIn().addClass('active') : $('#selection-angle-mode').removeClass('active').hide()
+   options[0].value.startsWith('angle') ? $('#evaluation-angle-mode').fadeIn().addClass('active') : $('#evaluation-angle-mode').removeClass('active').hide()
+   options[0].value.startsWith('angle2') ? $('.text-radsr').text('Steradians') : $('.text-radsr').text('Radians');
+   options[0].value.startsWith('angle2') ? $('.text-deg').text('Degree\u00B2') : $('.text-radsr').text('Degree');
+
+   $('input[type="radio"][name="selection-angle-mode"]').on('change', function() {
+      const value = $(this).val();
+      $('.select-box .range-unit').each(function() {
+         const span = $(this);
+         if(value === 'deg') {
+            if(span.closest('.select-box').is('[class*="angle2"]')) {
+               span.text('deg\u00B2');
+            } else {
+               span.text('deg');
+            }
+         } else {
+            if(span.closest('.select-box').is('[class*="angle2"]')) {
+               span.text('sr');
+            } else {
+               span.text('rad');
+            }
+         }
+      });
+   });
 }
