@@ -4,6 +4,7 @@
 // requires "../evaluation/AreaEvaluationStrategy";
 // requires "../evaluation/EdgeRatioEvaluationStrategy";
 // requires "./view-helpers";
+// requires "./helpers";
 
 
 /*--------------------------------------------------------------------------------------
@@ -92,7 +93,25 @@ const evalButtonHandler = (e) => {
       return;
    }
 
+   const angleType = document.querySelector('input[name="eval-angle-mode"]:checked').value;
    evaluationResults = evaluation.evaluate();
+   if(angleType === 'deg'){
+      evaluationMethod.startsWith('angle2') ? toSqDegrees(evaluationResults) : toDegrees(evaluationResults);
+   }
    showEvaluationResults();
    enableEvaluationDependant();
+}
+
+const toDegrees = (results) => {
+   results.list = results.list.map(radToDeg);
+   results.min = radToDeg(results.min);
+   results.max = radToDeg(results.max);
+   results.x_axis = 'Angles (degrees)';
+}
+
+const toSqDegrees = (results) => {
+   results.list = results.list.map(srToSqDeg);
+   results.min = srToSqDeg(results.min);
+   results.max = srToSqDeg(results.max);
+   results.x_axis = 'Angles (degrees\u00B2)';
 }
