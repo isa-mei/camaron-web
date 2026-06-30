@@ -14,7 +14,11 @@ const degToRad = (d) => {
 const radToDeg = (d) => {
     return d * 180 / Math.PI;
 }
- 
+
+const srToSqDeg = (d) => {
+    return d * (180 / Math.PI)**2;
+}
+
 // Obtiene un arreglo con todas las palabras contenidas en un string
 const getLineWords = (line) => {
     return line.match(/\S+/g);
