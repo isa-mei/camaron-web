@@ -157,6 +157,10 @@ const applyButtonHandler = (e) => {
       const edges_number = document.getElementById("edges_number").value;
       selection = new EdgesSelectionStrategy(model, selectionMode, edges_number)
    }
+   else if (selectionMethod == 'faces') {
+      const faces_number = document.getElementById("faces_number").value;
+      selection = new FacesSelectionStrategy(model, selectionMode, faces_number)
+   }
    if (selectionMode == 'clean') 
       appliedSelections = [selection];
    else
