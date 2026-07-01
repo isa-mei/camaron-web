@@ -19,6 +19,10 @@ const srToSqDeg = (d) => {
     return d * (180 / Math.PI)**2;
 }
 
+const sqDegToSr = (d) => {
+    return d * (Math.PI / 180)**2;
+}
+
 // Obtiene un arreglo con todas las palabras contenidas en un string
 const getLineWords = (line) => {
     return line.match(/\S+/g);
