@@ -282,7 +282,7 @@ const setSelectionAndEvaluationOptions = () => {
    options[0].value.startsWith('angle') ? $('#selection-angle-mode').fadeIn().addClass('active') : $('#selection-angle-mode').removeClass('active').hide()
    options[0].value.startsWith('angle') ? $('#evaluation-angle-mode').fadeIn().addClass('active') : $('#evaluation-angle-mode').removeClass('active').hide()
    options[0].value.startsWith('angle2') ? $('.text-radsr').text('Steradians') : $('.text-radsr').text('Radians');
-   options[0].value.startsWith('angle2') ? $('.text-deg').text('Degree\u00B2') : $('.text-radsr').text('Degree');
+   options[0].value.startsWith('angle2') ? $('.text-deg').text('Degree\u00B2') : $('.text-deg').text('Degree');
 
    $('input[type="radio"][name="selection-angle-mode"]').on('change', function() {
       const value = $(this).val();
