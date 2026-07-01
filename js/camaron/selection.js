@@ -127,7 +127,11 @@ const applyButtonHandler = (e) => {
          selection = new MinAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
       } else if (selectionMethod == 'angle-max' || selectionMethod == 'angle2-max'){
          selection = new MaxAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
-      }
+      } else if (selectionMethod == 'angle3-min'){
+         selection = new MinDihedralAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+      } else if (selectionMethod == 'angle3-max'){
+         selection = new MaxDihedralAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+      } 
    }
    else if (selectionMethod == 'area') {
       const areaFrom = document.getElementById("area_from").value;
