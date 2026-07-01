@@ -4,6 +4,7 @@
 // requires "../evaluation/AreaEvaluationStrategy";
 // requires "../evaluation/EdgeRatioEvaluationStrategy";
 // requires "./view-helpers";
+// requires "./helpers";
 
 
 /*--------------------------------------------------------------------------------------
@@ -75,6 +76,12 @@ const evalButtonHandler = (e) => {
       evaluation = new MinAngleEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'angle-max' || evaluationMethod === 'angle2-max') {
       evaluation = new MaxAngleEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'angle3') {
+      evaluation = new DihedralAngleEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'angle3-min') {
+      evaluation = new MinDihedralAngleEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'angle3-max') {
+      evaluation = new MaxDihedralAngleEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'area') {
       evaluation = new AreaEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'edges') {
@@ -85,12 +92,32 @@ const evalButtonHandler = (e) => {
       evaluation = new AspectRatioEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'edge-ratio') {
       evaluation = new EdgeRatioEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'faces') {
+      evaluation = new FacesEvaluationStrategy(model, evaluationMode);
    } else {
       alert("not implemented... yet");
       return;
    }
 
+   const angleType = document.querySelector('input[name="eval-angle-mode"]:checked').value;
    evaluationResults = evaluation.evaluate();
+   if(angleType === 'deg'){
+      evaluationMethod.startsWith('angle2') ? toSqDegrees(evaluationResults) : toDegrees(evaluationResults);
+   }
    showEvaluationResults();
    enableEvaluationDependant();
+}
+
+const toDegrees = (results) => {
+   results.list = results.list.map(radToDeg);
+   results.min = radToDeg(results.min);
+   results.max = radToDeg(results.max);
+   results.x_axis = 'Angles (degrees)';
+}
+
+const toSqDegrees = (results) => {
+   results.list = results.list.map(srToSqDeg);
+   results.min = srToSqDeg(results.min);
+   results.max = srToSqDeg(results.max);
+   results.x_axis = 'Angles (degrees\u00B2)';
 }

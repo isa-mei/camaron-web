@@ -24,6 +24,7 @@ class Polygon extends Shape {
       this._minAngle = null;
       this._aspectRatio = null;
       this._lengths = [];
+      this._dihedralAngles = new Map();
    }
 
    // Obtiene los ángulos internos del polígono.
@@ -305,5 +306,25 @@ class Polygon extends Shape {
       const minLength = Math.min(...lengths);
       const maxLength = Math.max(...lengths);
       return minLength / maxLength;
+   }
+
+   get dihedralAngles() {
+      if (this._dihedralAngles.size < this.vertices.length) {
+         const n1 = this.normal;
+         for (let i = 0; i < this.vertices.length; i++) {
+            const v1 = this.vertices[i];
+            const v2 = this.vertices[(i + 1) % this.vertices.length];
+            const polygonsSharingEdge = v1.polygons.filter(polygon => v2.polygons.includes(polygon) && polygon.id != this.id);
+            for (const polygon of polygonsSharingEdge) {
+               if (!this._dihedralAngles.has(polygon.id)) {
+                  const n2 = polygon.normal;
+                  const angle = Math.acos(vec3.dot(n1,n2) / (vec3.length(n1) * vec3.length(n2)));
+                  this._dihedralAngles.set(polygon.id, angle);
+                  polygon._dihedralAngles.set(this.id, angle);
+               }
+            }
+         }
+      }
+      return this._dihedralAngles;
    }
 }

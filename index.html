@@ -346,6 +346,20 @@
                             </div>
                             <ul class="select-list"></ul>
                         </div>
+                        <div id="selection-angle-mode" class="angle-mode hidden">
+                        <div class="grid g2">
+                            <label class="radio">
+                                <input type="radio" name="selection-angle-mode" value="rad" checked>
+                                <div class="input-radio"></div>
+                                <span class="text-radsr">Radians</span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="selection-angle-mode" value="deg">
+                                <div class="input-radio"></div>
+                                <span class="text-deg">Degrees</span>
+                            </label>
+                        </div>
+                        </div>
                         <div class="none-box select-box active"></div>
                         <div class="angle-box select-box">
                             <div class="flex v-center">
@@ -357,7 +371,7 @@
                                     <i class="material-icons">remove</i>
                                     <input id="angle_to" type="text" placeholder="-">
                                 </div>
-                                <span>rad</span>
+                                <span class="range-unit">rad</span>
                             </div>
                         </div>
                         <div class="angle-min-box select-box">
@@ -370,7 +384,7 @@
                                     <i class="material-icons">remove</i>
                                     <input id="angle_min_to" type="text" placeholder="-">
                                 </div>
-                                <span>rad</span>
+                                <span class="range-unit">rad</span>
                             </div>
                         </div>
                         <div class="angle-max-box select-box">
@@ -383,7 +397,7 @@
                                     <i class="material-icons">remove</i>
                                     <input id="angle_max_to" type="text" placeholder="-">
                                 </div>
-                                <span>rad</span>
+                                <span class="range-unit">rad</span>
                             </div>
                         </div>
                         <div class="angle2-box select-box">
@@ -392,11 +406,11 @@
                                     <span>Range</span>
                                 </label>
                                 <div class="flex v-center">
-                                    <input id="angle_from2" type="text" placeholder="0">
+                                    <input id="angle2_from" type="text" placeholder="0">
                                     <i class="material-icons">remove</i>
-                                    <input id="angle_to2" type="text" placeholder="-">
+                                    <input id="angle2_to" type="text" placeholder="-">
                                 </div>
-                                <span>sr</span>
+                                <span class="range-unit">sr</span>
                             </div>
                         </div>
                         <div class="angle2-min-box select-box">
@@ -409,7 +423,7 @@
                                     <i class="material-icons">remove</i>
                                     <input id="angle2_min_to" type="text" placeholder="-">
                                 </div>
-                                <span>sr</span>
+                                <span class="range-unit">sr</span>
                             </div>
                         </div>
                         <div class="angle2-max-box select-box">
@@ -422,7 +436,46 @@
                                     <i class="material-icons">remove</i>
                                     <input id="angle2_max_to" type="text" placeholder="-">
                                 </div>
-                                <span>sr</span>
+                                <span class="range-unit">sr</span>
+                            </div>
+                        </div>
+                        <div class="angle3-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle3_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle3_to" type="text" placeholder="-">
+                                </div>
+                                <span class="range-unit">rad</span>
+                            </div>
+                        </div>
+                        <div class="angle3-min-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle3_min_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle3_min_to" type="text" placeholder="-">
+                                </div>
+                                <span class="range-unit">rad</span>
+                            </div>
+                        </div>
+                        <div class="angle3-max-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Range</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id="angle3_max_from" type="text" placeholder="0">
+                                    <i class="material-icons">remove</i>
+                                    <input id="angle3_max_to" type="text" placeholder="-">
+                                </div>
+                                <span class="range-unit">rad</span>
                             </div>
                         </div>
                         <div class="area-box select-box">
@@ -510,6 +563,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="faces-box select-box">
+                            <div class="flex v-center">
+                                <label class="radio">
+                                    <span>Value</span>
+                                </label>
+                                <div class="flex v-center">
+                                    <input id='faces_number' type="text" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
                         <div class="selectionmode-box">
                             <h4>Selection mode:</h4>
                             <div class="flex evenly">
@@ -586,6 +649,20 @@
                     </div>
                 </div>
                 <ul class="select-list"></ul>
+            </div>
+            <div id="evaluation-angle-mode" class="angle-mode hidden">
+                <div class="grid g2">
+                    <label class="radio">
+                        <input type="radio" name="eval-angle-mode" value="rad" checked>
+                        <div class="input-radio"></div>
+                        <span class="text-radsr">Radians</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="eval-angle-mode" value="deg">
+                        <div class="input-radio"></div>
+                        <span class="text-deg">Degrees</span>
+                    </label>
+                </div>
             </div>
             <div class="grid g2 mgbot">
                  <label class="radio">
@@ -841,6 +918,10 @@
     <script type="text/javascript" src="js/selection/EdgeRatioSelectionStrategy.js"></script>
     <script type="text/javascript" src="js/selection/MinAngleSelectionStrategy.js"></script>
     <script type="text/javascript" src="js/selection/MaxAngleSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/DihedralAngleSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/MinDihedralAngleSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/MaxDihedralAngleSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/FacesSelectionStrategy.js"></script>
     <!-- Evaluation -->
     <script type="text/javascript" src="js/evaluation/EvaluationStrategy.js"></script>
     <script type="text/javascript" src="js/evaluation/AngleEvaluationStrategy.js"></script>
@@ -851,6 +932,10 @@
     <script type="text/javascript" src="js/evaluation/EdgeRatioEvaluationStrategy.js"></script>
     <script type="text/javascript" src="js/evaluation/MaxAngleEvaluationStrategy.js"></script>
     <script type="text/javascript" src="js/evaluation/MinAngleEvaluationStrategy.js"></script>
+    <script type="text/javascript" src="js/evaluation/DihedralAngleEvaluationStrategy.js"></script>
+    <script type="text/javascript" src="js/evaluation/MinDihedralAngleEvaluationStrategy.js"></script>
+    <script type="text/javascript" src="js/evaluation/MaxDihedralAngleEvaluationStrategy.js"></script>
+    <script type="text/javascript" src="js/evaluation/FacesEvaluationStrategy.js"></script>
     <!-- UI -->
     <script type="text/javascript" src="js/ui/translator.js"></script>
     <script type="text/javascript" src="js/ui/rotator.js"></script>

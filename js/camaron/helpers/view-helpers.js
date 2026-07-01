@@ -211,6 +211,7 @@ const setSelectionAndEvaluationOptions = () => {
    $('.drop-down .button').off('click');
    // Y deshabilita el select box correspondiente a alguna opción previa.
    $('.select-box').removeClass('active').hide();
+   $('.angle-mode').removeClass('active').hide();
    if (!model || (model && !['PolygonMesh', 'PolyhedronMesh'].includes(model.modelType))) {
       $('.drop-down .button').addClass('disabled');
       $('.drop-down .button').html('<div><i class="material-icons" style="color: #7B7BDD;">block</i><span>Not available</span></div>');
@@ -228,6 +229,9 @@ const setSelectionAndEvaluationOptions = () => {
          {value: 'angle', dataImg: 'img/icon-ev-angles.svg', text: 'By Polygon Internal Angles', evaluation: true},
          {value: 'angle-min', dataImg: 'img/icon-ev-angles.svg', text: 'By Polygon Internal Min Angles', evaluation: true},
          {value: 'angle-max', dataImg: 'img/icon-ev-angles.svg', text: 'By Polygon Internal Max Angles', evaluation: true},
+         {value: 'angle3', dataImg: 'img/img-angle.svg', text: 'By Polygon Dihedral Angles', evaluation: true},
+         {value: 'angle3-min', dataImg: 'img/img-angle.svg', text: 'By Polygon Dihedral Min Angles', evaluation: true},
+         {value: 'angle3-max', dataImg: 'img/img-angle.svg', text: 'By Polygon Dihedral Max Angles', evaluation: true},
          {value: 'area', dataImg: 'img/icon-ev-area.svg', text: 'By Polygon Area', evaluation: true},
          {value: 'edges', dataImg: 'img/icon-ev-edges.svg', text: 'By Polygon Edge Number', evaluation: true},
          {value: 'aspect-ratio', dataImg: 'img/icon-ev-aspect-ratio.svg', text: 'By Polygon Aspect Ratio', evaluation: true},
@@ -241,6 +245,8 @@ const setSelectionAndEvaluationOptions = () => {
          {value: 'angle2-max', dataImg: 'img/icon-ev-dihedral.svg', text: 'By Polyhedron Solid Max Angles', evaluation: true},
          {value: 'area', dataImg: 'img/icon-ev-surface.svg', text: 'By Polyhedron Surface', evaluation: true},
          {value: 'volume', dataImg: 'img/icon-ev-volume.svg', text: 'By Polyhedron Volume', evaluation: true},
+         {value: 'faces', dataImg: '', text: 'By Polyhedron Faces Number', evaluation: true},
+         {value: 'edge-ratio', dataImg: '', text: 'By Polyhedron Edge Ratio', evaluation: true},
          {value: 'id', dataImg: 'img/img-id.svg', text: 'By Polyhedron ID', evaluation: false},
       ]
    }
@@ -257,6 +263,12 @@ const setSelectionAndEvaluationOptions = () => {
          // Y si su padre tiene id selection_type, oculta los elementos de clase select-box y muestra el relevante a la opción escogida  
          $('#selection-type').has(this).siblings('.select-box').removeClass('active').hide();
          $('#selection-type').has(this).siblings(`.select-box.${option.value}-box`).fadeIn().addClass('active');
+         // si en las opciones está seleccionado algun angulo, se incluye radio para escoger entre radianes/estereorradián o grados
+         const angleModeOption = $(this).closest('.card').find('.angle-mode');
+         option.value.startsWith('angle') ? angleModeOption.fadeIn().addClass('active') : angleModeOption.removeClass('active').hide();
+         // si la opcion es angle2 = angulo solido, debe decir steradians en vez de radians
+         option.value.startsWith('angle2') ? angleModeOption.find('.text-radsr').text('Steradians') : angleModeOption.find('.text-radsr').text('Radians');
+         option.value.startsWith('angle2') ? angleModeOption.find('.text-deg').text('Degree\u00B2') : angleModeOption.find('.text-deg').text('Degree');
       });
       // Finalmente, agrega las opciones disponibles dadas por el tipo de malla a los drop-downs de selection y evaluation (si evaluation=true).
       const dropDownSelector = option.evaluation ? '.drop-down' : '#selection-type';
@@ -266,8 +278,32 @@ const setSelectionAndEvaluationOptions = () => {
    $('.drop-down .button').html('<div><img src="' + options[0].dataImg + '"/>' + '<span>' + options[0].text + '</span></div>' + '<a href="javascript:void(0);" class="select-list-link"><i class="material-icons">keyboard_arrow_down</i></a>');
    $('.drop-down .button').attr('value', options[0].value);     
    $('.drop-down .button').on('click', function(){      
-   $('.drop-down').has(this).find('.select-list').toggleClass('active');  
+      $('.drop-down').has(this).find('.select-list').toggleClass('active');  
    });
    // Y finalmente muestra el select box relevante a la primera opción.
    $(`.select-box.${options[0].value}-box`).fadeIn().addClass('active');
+   options[0].value.startsWith('angle') ? $('#selection-angle-mode').fadeIn().addClass('active') : $('#selection-angle-mode').removeClass('active').hide()
+   options[0].value.startsWith('angle') ? $('#evaluation-angle-mode').fadeIn().addClass('active') : $('#evaluation-angle-mode').removeClass('active').hide()
+   options[0].value.startsWith('angle2') ? $('.text-radsr').text('Steradians') : $('.text-radsr').text('Radians');
+   options[0].value.startsWith('angle2') ? $('.text-deg').text('Degree\u00B2') : $('.text-deg').text('Degree');
+
+   $('input[type="radio"][name="selection-angle-mode"]').on('change', function() {
+      const value = $(this).val();
+      $('.select-box .range-unit').each(function() {
+         const span = $(this);
+         if(value === 'deg') {
+            if(span.closest('.select-box').is('[class*="angle2"]')) {
+               span.text('deg\u00B2');
+            } else {
+               span.text('deg');
+            }
+         } else {
+            if(span.closest('.select-box').is('[class*="angle2"]')) {
+               span.text('sr');
+            } else {
+               span.text('rad');
+            }
+         }
+      });
+   });
 }
