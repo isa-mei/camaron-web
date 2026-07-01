@@ -78,6 +78,10 @@ const evalButtonHandler = (e) => {
       evaluation = new MaxAngleEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'angle3') {
       evaluation = new DihedralAngleEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'angle3-min') {
+      evaluation = new MinDihedralAngleEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'angle3-max') {
+      evaluation = new MaxDihedralAngleEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'area') {
       evaluation = new AreaEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'edges') {
