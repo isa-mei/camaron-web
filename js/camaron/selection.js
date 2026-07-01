@@ -4,7 +4,7 @@
 // requires "../selection/AngleSelectionStrategy";
 // requires "../selection/AreaSelectionStrategy";
 // requires "../selection/EdgesSelectionStrategy";
-
+// requires "./helpers";
 
 /*--------------------------------------------------------------------------------------
 -------------------------------------- SELECTIONS --------------------------------------
@@ -104,33 +104,30 @@ const applyButtonHandler = (e) => {
          list = document.getElementById("id_list").value.split(',');
       }
       selection = new IdSelectionStrategy(model, selectionMode, idFrom, idTo, list);
-   } 
-   else if (selectionMethod == 'angle') {
-      const angleFrom = document.getElementById("angle_from").value;
-      const angleTo = document.getElementById("angle_to").value;
-      selection = new AngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
    }
-   else if (selectionMethod == 'angle-min' || selectionMethod == 'angle2-min') {
+   else if (selectionMethod.startsWith('angle')){
+      const angleType = document.querySelector('input[name="selection-angle-mode"]:checked').value;
       const method = selectionMethod.replace("-", "_");
-      const angleFrom = document.getElementById(method + "_from").value;
-      const angleTo = document.getElementById(method + "_to").value;
-      selection = new MinAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
-   }
-   else if (selectionMethod == 'angle-max' || selectionMethod == 'angle2-max') {
-      const method = selectionMethod.replace("-", "_");
-      const angleFrom = document.getElementById(method + "_from").value;
-      const angleTo = document.getElementById(method + "_to").value;
-      selection = new MaxAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
-   }
-   else if (selectionMethod == 'angle2') {
-      const angleFrom = document.getElementById("angle_from2").value;
-      const angleTo = document.getElementById("angle_to2").value;
-      selection = new AngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
-   }
-   else if (selectionMethod == 'angle3') {
-      const angleFrom = document.getElementById("angle3_from").value;
-      const angleTo = document.getElementById("angle3_to").value;
-      selection = new DihedralAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+      let angleFrom = document.getElementById(method + "_from").value;
+      let angleTo = document.getElementById(method + "_to").value;
+      if (angleType === 'deg'){
+         if(selectionMethod.startsWith('angle2')){
+            angleFrom = sqDegToSr(angleFrom);
+            angleTo = sqDegToSr(angleTo);
+         } else {
+            angleFrom = degToRad(angleFrom);
+            angleTo = degToRad(angleTo);
+         }
+      }
+      if (selectionMethod == 'angle3'){ 
+         selection = new DihedralAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+      } else if (selectionMethod == 'angle' || selectionMethod == 'angle2'){
+         selection = new AngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+      } else if (selectionMethod == 'angle-min' || selectionMethod == 'angle2-min'){
+         selection = new MinAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+      } else if (selectionMethod == 'angle-max' || selectionMethod == 'angle2-max'){
+         selection = new MaxAngleSelectionStrategy(model, selectionMode, angleFrom, angleTo);
+      }
    }
    else if (selectionMethod == 'area') {
       const areaFrom = document.getElementById("area_from").value;
