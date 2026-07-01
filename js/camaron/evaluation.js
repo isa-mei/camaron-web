@@ -92,6 +92,8 @@ const evalButtonHandler = (e) => {
       evaluation = new AspectRatioEvaluationStrategy(model, evaluationMode);
    } else if (evaluationMethod === 'edge-ratio') {
       evaluation = new EdgeRatioEvaluationStrategy(model, evaluationMode);
+   } else if (evaluationMethod === 'faces') {
+      evaluation = new FacesEvaluationStrategy(model, evaluationMode);
    } else {
       alert("not implemented... yet");
       return;
