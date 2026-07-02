@@ -101,7 +101,7 @@ const evalButtonHandler = (e) => {
 
    const angleType = document.querySelector('input[name="eval-angle-mode"]:checked').value;
    evaluationResults = evaluation.evaluate();
-   if(angleType === 'deg'){
+   if(angleType === 'deg' && evaluationMethod.startsWith('angle')) {
       evaluationMethod.startsWith('angle2') ? toSqDegrees(evaluationResults) : toDegrees(evaluationResults);
    }
    showEvaluationResults();
