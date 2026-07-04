@@ -86,8 +86,4 @@ class ObjLoadStrategy extends ModelLoadStrategy {
       this.model.polygons = polygons;
       return startIndex + numPolygons;
     }
-
-    _exportToObj() {
-        return this.fileArray.join('\n');
-    }
 }
