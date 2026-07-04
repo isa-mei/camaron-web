@@ -35,6 +35,8 @@ const updateInfo = () => {
       showEulerInformation();
    } else if (model.modelType === 'PolyhedronMesh') {
       polytopesInfo.innerHTML += `Polyhedrons: ${model.polyhedrons?.length}`;
+   } else if (model.modelType === 'DegenerateModel') {
+      showDegenerateInformation();
    }
    widthInfo.innerHTML = `Width: ${Math.round(model.modelWidth)}`;
    heightInfo.innerHTML = `Height: ${Math.round(model.modelHeight)}`;
