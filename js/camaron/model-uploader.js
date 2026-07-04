@@ -80,11 +80,19 @@ const waitForModelLoaded = () => {
 };
 
 // Initializes model loading and waits for it to be loaded
-const initModelView = () => {
-   setTimeout(() => {
-      model.doLoadBuffers();
+const initModelView = async () => {
+   try {
+      await model.doLoadBuffers();
       mvpManager = new MVPManager(model);
-   }, 0);
+   } catch (error) {
+      model = loadDegenerateModel(model);
+      try{
+         await model.doLoadBuffers();
+         mvpManager = new MVPManager(model);
+      } catch (fallbackError) {
+         console.error(fallbackError);
+      }
+   }
    changeViewType();
    rotator = new Rotator();
    translator = new Translator();
@@ -106,6 +114,12 @@ const readFileAsText = (file) => {
       reader.readAsText(file);
    });
 };
+
+const loadDegenerateModel = (oldModel) => {
+   let degenerateModel = new DegenerateModel();
+   degenerateModel.getElementsFromModel(oldModel);
+   return degenerateModel;
+}
 
 
 // Here is were everything gets initialized.
