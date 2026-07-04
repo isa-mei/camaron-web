@@ -98,7 +98,7 @@
 .select-box {
     padding: 10px;
     margin-bottom: 10px;
-    min-height: 175px;
+    min-height: 150px;
     display: none; 
 }
 .select-box.active {
