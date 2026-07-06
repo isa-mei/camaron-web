@@ -30,7 +30,6 @@ class M3DLoadStrategy extends ModelLoadStrategy {
         this.model = new PolyhedronMesh();
         let startIndex = this.loadModelVertices(numVertices, 2);
         this.loadModelElements(startIndex);
-        // console.log(this.fileArray);
         this.model.vertices = Array.from(Object.values(this.model.vertices));
     }
 
@@ -114,9 +113,5 @@ class M3DLoadStrategy extends ModelLoadStrategy {
          this.model.vertices[key].polyhedrons = Array.from(Object.values(this.model.vertices[key].polyhedrons));
         })
         this.model.polyhedrons = polyhedrons;
-    }
-
-    _exportToM3D() {
-        return this.fileArray.join('\n');
     }
 }
