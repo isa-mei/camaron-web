@@ -44,7 +44,9 @@ const showDegenerateInformation = () => {
     having vertices really close, so the program can not calculate the basis vector related to the polygon.`;
     info.appendChild(span);
 
-    if(model.degeneratePolygons.length < 10){
+    if(model.degeneratePolygons.length === 0){
+        span.innerHTML = `This model is too heavy for the web visualization. It cannot be completely load into the app.`;
+    } else if (model.degeneratePolygons.length < 10 && model.degeneratePolygons.length > 0){
         span.innerHTML += `<br> <br> The problematic elements are:`;
         const list = document.createElement("ul");
         for (let x in model.degenerateVertices) {
