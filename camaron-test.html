@@ -31,36 +31,63 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript" src="js/external/webgl-utils.js"></script>
-    <script type="text/javascript" src="js/external/gl-matrix.js"></script>
+    <script type="text/javascript" src="js/external/gl-matrix-old.js"></script>
+    <script src="https://unpkg.com/earcut@2.2.4/dist/earcut.min.js"></script>
+    <script src="https://unpkg.com/tinyqueue@2.0.0/tinyqueue.min.js"></script>
 
     <!-- Source Files -->
-    <script type="text/javascript" src="js/camaron-config.js"></script>
     <script type="text/javascript" src="js/ui/translator.js"></script>
     <script type="text/javascript" src="js/ui/rotator.js"></script>
     <script type="text/javascript" src="js/ui/scalator.js"></script>
-    <script type="text/javascript" src="js/model/element.js"></script>
-    <script type="text/javascript" src="js/model/model.js"></script>
-    <script type="text/javascript" src="js/model/rmodel.js"></script>
-    <script type="text/javascript" src="js/fileloader/loader-base.js"></script>
-    <script type="text/javascript" src="js/fileloader/off-loader.js"></script>
+    <script type="text/javascript" src="js/fileloader/ModelLoadStrategy.js"></script>
+    <script type="text/javascript" src="js/fileloader/OffLoadStrategy.js"></script>
+    <script type="text/javascript" src="js/fileloader/VisfLoadStrategy.js"></script>
+    <script type="text/javascript" src="js/fileloader/PolyLoadStrategy.js"></script>
+    <script type="text/javascript" src="js/fileloader/SmeshLoadStrategy.js"></script>
+    <script type="text/javascript" src="js/fileloader/ObjLoadStrategy.js"></script>
+    <script type="text/javascript" src="js/fileloader/M3DLoadStrategy.js"></script>
+    <script type="text/javascript" src="js/fileloader/NodeLoadStrategy.js"></script>
+    <script type="text/javascript" src="js/fileloader/NodeFaceLoadStrategy.js"></script>
+    <script type="text/javascript" src="js/fileloader/NodeEleLoadStrategy.js"></script>
     <script type="text/javascript" src="js/rendering/shaders.js"></script>
-    <script type="text/javascript" src="js/rendering/renderer-base.js"></script>
-    <script type="text/javascript" src="js/rendering/main-renderers/directface.js"></script>
-    <script type="text/javascript" src="js/rendering/main-renderers/directvertex.js"></script>
-    <script type="text/javascript" src="js/rendering/main-renderers/flat.js"></script>
-    <script type="text/javascript" src="js/rendering/secondary-renderers/wire.js"></script>
-    <script type="text/javascript" src="js/rendering/secondary-renderers/vertex-normals.js"></script>
-    <script type="text/javascript" src="js/rendering/secondary-renderers/face-normals.js"></script>
-    <script type="text/javascript" src="js/rendering/secondary-renderers/vertex-cloud.js"></script>
-    <script type="text/javascript" src="js/selection/selection-base.js"></script>
-    <script type="text/javascript" src="js/selection/angle-selection.js"></script>
-    <script type="text/javascript" src="js/selection/area-selection.js"></script>
-    <script type="text/javascript" src="js/selection/id-selection.js"></script>
-    <script type="text/javascript" src="js/evaluation/evaluation-base.js"></script>
-    <script type="text/javascript" src="js/evaluation/angle-evaluation.js"></script>
-    <script type="text/javascript" src="js/evaluation/area-evaluation.js"></script>
-
-    <!-- Spec Files -->
+    <script type="text/javascript" src="js/rendering/Renderer.js"></script>
+    <script type="text/javascript" src="js/rendering/main-renderers/MainRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/main-renderers/DirectFaceRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/main-renderers/DirectVertexRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/main-renderers/FlatRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/main-renderers/CuttingPlaneRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/secondary-renderers/SecondaryRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/secondary-renderers/FNormalsRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/secondary-renderers/VNormalsRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/secondary-renderers/WireRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/secondary-renderers/texture-renderers/TextureRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/secondary-renderers/texture-renderers/VCloudRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/secondary-renderers/texture-renderers/BillboardIdRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/secondary-renderers/texture-renderers/VertexIdRenderer.js"></script>
+    <script type="text/javascript" src="js/rendering/secondary-renderers/texture-renderers/FaceIdRenderer.js"></script>
+    <script type="text/javascript" src="js/model/shapes/Shape.js"></script>
+    <script type="text/javascript" src="js/model/shapes/Edge.js"></script>
+    <script type="text/javascript" src="js/model/shapes/Polygon.js"></script>
+    <script type="text/javascript" src="js/model/shapes/Hole.js"></script>
+    <script type="text/javascript" src="js/model/shapes/Vertex.js"></script>
+    <script type="text/javascript" src="js/model/shapes/Polyhedron.js"></script>
+    <script type="text/javascript" src="js/model/MVPManager.js"></script>
+    <script type="text/javascript" src="js/model/model-types/AbstractModel.js"></script>
+    <script type="text/javascript" src="js/model/model-types/VertexCloud.js"></script>
+    <script type="text/javascript" src="js/model/model-types/PSLG.js"></script>
+    <script type="text/javascript" src="js/model/model-types/PolygonMesh.js"></script>
+    <script type="text/javascript" src="js/model/model-types/PolyhedronMesh.js"></script>
+    <script type="text/javascript" src="js/model/model-types/DegenerateModel.js"></script>
+    <script type="text/javascript" src="js/camaron/helpers/helpers.js"></script>
+    <script type="text/javascript" src="js/camaron/selection.js"></script>
+    <script type="text/javascript" src="js/camaron/evaluation.js"></script>
+    <script type="text/javascript" src="js/evaluation/EvaluationStrategy.js"></script> 
+    <script type="text/javascript" src="js/evaluation/AngleEvaluationStrategy.js"></script>
+    <script type="text/javascript" src="js/evaluation/AreaEvaluationStrategy.js"></script>  
+    <script type="text/javascript" src="js/selection/SelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/AngleSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/AreaSelectionStrategy.js"></script>
+    <script type="text/javascript" src="js/selection/IdSelectionStrategy.js"></script>    
     <script type="text/javascript" src="js/tests.js"></script>
 
 
