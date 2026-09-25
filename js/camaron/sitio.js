@@ -86,13 +86,12 @@ $( document ).ready(function() {
 		$('#' + href).find('.modal-container').removeClass('bottom-out').addClass('bottom-in');
         $('#' + href).trigger('shown');
 	});
-    $('.modal').click(function(){
-        if ($(this).hasClass('active')) {
-            $(this).delay(150).fadeOut().removeClass('active');$('.modal-container').toggleClass('bottom-in bottom-out');
+    $('.modal').on('click', function(e){
+        if ($(this).hasClass('active') && !$(e.target).closest('.modal-container').length) {
+            $(this).delay(150).fadeOut().removeClass('active');
+            $('.modal-container').toggleClass('bottom-in bottom-out');
             $(this).trigger('hidden');
         }
-    }).find('.modal-container').click(function(e) {
-            return false;
     });
 	$('.modal-close').click(function(){
 		$('.modal.active').delay(150).fadeOut().removeClass('active');

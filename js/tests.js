@@ -1,76 +1,99 @@
-var canvas = document.getElementById("glCanvas");
 
-var gl = canvas.getContext("webgl2");
+let canvas = document.getElementById("glCanvas");
+
+let gl = canvas.getContext("webgl2");
 if (!gl) {alert("No WebGL");}
 
-var fileArray = ["OFF", "8 6 0", "-0.500000 -0.500000 0.500000", "0.500000 -0.500000 0.500000", "-0.500000 0.500000 0.500000", "0.500000 0.500000 0.500000", "-0.500000 0.500000 -0.500000", "0.500000 0.500000 -0.500000", "-0.500000 -0.500000 -0.500000", "0.500000 -0.500000 -0.500000", "4 0 1 3 2", "4 2 3 5 4", "4 4 5 7 6", "4 6 7 1 0", "4 1 7 5 3", "4 6 0 2 4"];
-var loader;
-var model;
-var rModel;
+let fileArray = ["OFF", "8 6 0", "-0.500000 -0.500000 0.500000", "0.500000 -0.500000 0.500000", "-0.500000 0.500000 0.500000", "0.500000 0.500000 0.500000", "-0.500000 0.500000 -0.500000", "0.500000 0.500000 -0.500000", "-0.500000 -0.500000 -0.500000", "0.500000 -0.500000 -0.500000", "4 0 1 3 2", "4 2 3 5 4", "4 4 5 7 6", "4 6 7 1 0", "4 1 7 5 3", "4 6 0 2 4"];
+let loader;
+let model;
+let rModel;
 
-describe("Model and RModel", function(){
-	beforeEach(function() {
-    	loader = new OffLoadStrategy(fileArray);
-    	model = loader.load();
-    	rModel = new RModel(model);
-    	rModel.loadData();
-    	rModel.loadTriangles();
-  	});
+const fontInfo = {
+    letterWidth: 242,
+    letterHeight: 310,
+    textureWidth: 1685,
+    textureHeight: 1338,
+    glyphInfos: {
+        '0': { x: 453, y: 1028 },
+        '1': { x: 0, y: 3 },
+        '2': { x: 452, y: 3 },
+        '3': { x: 936, y: 3 },
+        '4': { x: 1409, y: 3 },
+        '5': { x: 0, y: 515 },
+        '6': { x: 453, y: 515 },
+        '7': { x: 936, y: 515 },
+        '8': { x: 1409, y: 515 },
+        '9': { x: 0, y: 1028 }
+    }};
+
+describe("Model", function(){
+	loader = new OffLoadStrategy(fileArray);
+	loader.doLoad();
+	model = loader.model;
+	model.loadBuffers();
 
 	it("loader should be valid", function() {
-    	expect(loader.isValid()).toEqual(true);
+    	expect(loader.isValid).toEqual(true);
   	});
 
-  	it("model and rmodel shoud be defined", function() {
+  	it("model defined", function() {
     	expect(model).not.toEqual(undefined);
-    	expect(rModel).not.toEqual(undefined);
   	});
 
   	it("model polygons count should be 6", function() {
-    	expect(model.getPolygonsCount()).toEqual(6);
+    	expect(model.polygons.length).toEqual(6);
   	});
 
   	it("model vertices count should be 8", function() {
-    	expect(model.getVerticesCount()).toEqual(8);
+    	expect(model.vertices.length).toEqual(8);
   	});
 
   	it("model bounds should be correct", function() {
-    	expect(model.getBounds()).toEqual([-0.5, -0.5, -0.5, 0.5, 0.5, 0.5]);
+    	expect([...model.bounds]).toEqual([-0.5, -0.5, -0.5, 0.5, 0.5, 0.5]);
   	});
 
-  	it("rmodel polygons and vertices count should be the same", function() {
-  		expect(rModel.getPolygonsCount()).toEqual(model.getPolygonsCount());
-    	expect(rModel.getVerticesCount()).toEqual(model.getVerticesCount());
-  	});
-
-  	it("rmodel triangles count should be greater than its polygons count", function() {
-  		expect(rModel.getTrianglesCount()).toBeGreaterThan(model.getPolygonsCount());
+  	it("model triangles count should be greater than its polygons count", function() {
+  		expect(model.trianglesCount).toBeGreaterThan(model.polygons.length);
   	});
 })
 
 
 describe("Selection", function(){
-	beforeEach(function() {
-    	loader = new OffLoadStrategy(fileArray);
-    	model = loader.load();
+	loader = new OffLoadStrategy(fileArray);
+	loader.doLoad();
+	model = loader.model;
+	model.loadBuffers();
+	
+	// TODO
+	it("selection in range test", function() {
+		let sel = new AngleSelectionStrategy(model, 'clean', 1.36, 1.7);
+		sel.apply();
+    	expect(model.polygons.filter(p => p.isSelected).length).toEqual(6);
   	});
 
-  // TODO
-  it("selection test", function() {
-    expect(true).toEqual(true);
-  });
+  	it("selection not in range test", function() {
+		let sel = new AngleSelectionStrategy(model, 'clean', 1.7, 0);
+		sel.apply();
+    	expect(model.polygons.filter(p => p.isSelected).length).toEqual(0);
+  	});
 
 })
 
 describe("Evaluation", function(){
-	beforeEach(function() {
-    	loader = new OffLoadStrategy(fileArray);
-    	model = loader.load();
-  	});
+	loader = new OffLoadStrategy(fileArray);
+	loader.doLoad();
+	model = loader.model;
+	model.loadBuffers();
 
+	let ev = new AngleEvaluationStrategy(model, 'model');
+	let res = ev.evaluate();
   // TODO
   it("evaluation test", function() {
-    expect(true).toEqual(true);
+    expect(res.list.length).toEqual(24);
+  });
+  it("evaluation angle value", function() {
+    expect(res.list[0]).toEqual(Math.PI/2);
   });
 
 })
